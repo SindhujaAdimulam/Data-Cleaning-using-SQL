@@ -8,6 +8,7 @@ FROM layoffs;
 -- 3. null values and blank values
 -- 4. remove columns r rows when necessary
 
+/* creating staging table for data cleaning from orginal table */
 CREATE TABLE layoffs_staging
 LIKE layoffs;
 
@@ -18,6 +19,7 @@ INSERT layoffs_staging
 SELECT *
 FROM layoffs;
 
+/* Removing the duplicate rows by creating a row number */
 SELECT *,
 ROW_NUMBER() OVER(PARTITION BY company, industry, total_laid_off, percentage_laid_off, `date`) AS row_num
 FROM layoffs_staging;
